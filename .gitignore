@@ -1,0 +1,13 @@
+### Composer ###
+composer.phar
+/vendor/
+
+# IDE's
+.project/
+.vscode/
+.idea/
+
+# Other
+*.DS_Store
+**/.env
+**/.todo
