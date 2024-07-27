@@ -8,7 +8,7 @@
  * Plugin URI: https://github.com/NimaKeshavarzian/meetingium
  * Author: Nima Keshavarzian
  * Author URI: https://github.com/NimaKeshavarzian
- * License: GPL 3
+ * License: GPL v3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 */
 
