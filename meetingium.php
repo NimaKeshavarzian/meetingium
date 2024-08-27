@@ -12,6 +12,17 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+defined( 'ABSPATH' ) || exit;
+
+// Require packages using composer autoloader
+if(! file_exists( __DIR__ . '/vendor/autoload.php' )) {
+  wp_die(esc_html__("The Meetingium Plugin is not installed correctly"));
 }
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Import main class
+if(!class_exists('Meetingium')) {
+  require_once __DIR__ . '/includes/class-meetingium.php';
+}
+
+Meetingium::init();
