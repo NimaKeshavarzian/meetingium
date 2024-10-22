@@ -7,35 +7,17 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Meetingium\Utils\Utils as Utils;
-
-
 final class Meetingium {
 
-  /**
-  * Meetingium Constructor
-  */
   public function __construct() {
-    $this->defineConstants();
+    if (!defined('MTU_BASE_PATH')) define('MTU_BASE_PATH', dirname(__DIR__));
     $this->loadDependencies();
-    $this->initHooks();
-  }
-
-  /**
-  * Define Meetingium Constants
-  */
-  private function defineConstants() {
-    define("MTU_BASE_PATH", dirname(__DIR__));
   }
 
   private function loadDependencies() {
-    require_once MTU_BASE_PATH . "/includes/class-utils.php";
+    require_once MTU_BASE_PATH . "/includes/class-mtu-utils.php";
+    if (is_admin()) require_once MTU_BASE_PATH . "/admin/class-mtu-admin.php";
   }
-
-  /**
-  * Initialize hooks to wordpress hooks and actions
-  */
-  private function initHooks() {}
 
   /**
   * @return self 

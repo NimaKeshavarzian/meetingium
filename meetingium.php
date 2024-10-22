@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Require packages using composer autoloader
 if(! file_exists( __DIR__ . '/vendor/autoload.php' )) {
-  wp_die(esc_html__("The Meetingium Plugin is not installed correctly"));
+  wp_die(esc_html__("افزونه میتینگیوم به درستی نصب نشه."));
 }
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -25,4 +25,5 @@ if(!class_exists('Meetingium')) {
   require_once __DIR__ . '/includes/class-meetingium.php';
 }
 
+// Setup plugin
 Meetingium::init();
