@@ -7,6 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use Meetingium\Utils\Utils;
+
 final class Meetingium {
 
   public function __construct() {
@@ -16,8 +18,12 @@ final class Meetingium {
 
   private function loadDependencies() {
     require_once MTU_BASE_PATH . "/includes/class-mtu-utils.php";
+    require_once MTU_BASE_PATH . "/includes/class-mtu-post-type.php";
     if (is_admin()) require_once MTU_BASE_PATH . "/admin/class-mtu-admin.php";
   }
+
+  // Hook into wordpress actions and filters
+  private function initHooks() {}
 
   /**
   * @return self 

@@ -13,7 +13,6 @@ defined( 'ABSPATH' ) || exit;
 class MTU_Admin {
   public function __construct() {
     add_action("admin_menu", array($this, "createAdminMenus"));
-    $this->registerPostTypes();
   }
 
   /*
@@ -27,8 +26,8 @@ class MTU_Admin {
       "manage_options",
       "meetingium",
       "",
-      "dashicons-welcome-learn-more".
-      26
+      "dashicons-welcome-learn-more",
+      25
     );
     // Add plugin settings sub-menu item
     add_submenu_page(
@@ -54,19 +53,15 @@ class MTU_Admin {
   * Require settings page and display that
   */
   public function displaySettingsPage() {
-  // get current settings
+    // get current settings
     $bbbSettings = array(
       "url" => get_option("meetingium_bbb_url"),
       "salt" => get_option("meetingium_bbb_salt")
     );
 
-   require_once MTU_BASE_PATH . "/admin/partials/mtu-settings-display.php"; 
+    require_once MTU_BASE_PATH . "/admin/partials/mtu-settings-display.php"; 
   }
 
-  /*
-  * Create custom post-types for plugin
-  */
-  public function registerPostTypes() {}
 }
 
 return new MTU_Admin();
