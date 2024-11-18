@@ -7,8 +7,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Meetingium\Utils\Utils;
-
 final class Meetingium {
 
   public function __construct() {

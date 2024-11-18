@@ -5,8 +5,6 @@
 * Register and manage post types
 */
 
-use Meetingium\Utils\Utils;
-
 defined( 'ABSPATH' ) || exit;
 
 class MTU_PostType {

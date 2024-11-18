@@ -10,6 +10,9 @@ namespace Meetingium\BBB_Api;
 use Meetingium\Utils\Utils as Utils;
 use BigBlueButton\BigBlueButton;
 use BigBlueButton\Parameters\CreateMeetingParameters;
+use BigBlueButton\Parameters\EndMeetingParameters;
+use BigBlueButton\Parameters\GetRecordingsParameters;
+use BigBlueButton\Parameters\JoinMeetingParameters;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,6 +50,57 @@ class MTU_BBB_Api {
     if(!$bbb["success"]) return $bbb;
     $res = $bbb["data"]->createMeeting($createMeetingParams);
     return Utils::returnData($res);
+  }
+
+  /*
+  * get meeting url to join
+  *
+  * @param String $meetingId
+  * @param String $userName User name inside meeting
+  * @param String $password Password to join (moderatorPw for admin and attendeePw for normal clients)
+  * @return String $url Meeting url to join
+  */
+  public static function getMeetingUrl(string $meetingId, string $userName, string $password) {
+    $joinMeetingParams = new JoinMeetingParameters($meetingId, $userName, $password);
+    $joinMeetingParams->setRedirect(true);
+
+    $bbb = self::bbbInstance();
+    if(!$bbb["success"]) return $bbb;
+    $url = $bbb["data"]->getJoinMeetingURL($joinMeetingParams);
+    return Utils::returnData($url);
+  }
+
+  /*
+  * End meeting and delete that
+  *
+  * @param String $meetingId
+  * @param String $moderatorPw Meeting admin password
+  * @return Object $res
+  */
+  public static function endMeeting(string $meetingId, string $moderatorPw) {
+    $endMeetingParams = new EndMeetingParameters($meetingId, $moderatorPw);
+    
+    $bbb = self::bbbInstance();
+    if(!$bbb["success"]) return $bbb;
+    $res = $bbb["data"]->endMeeting($endMeetingParams);
+    return Utils::returnData($res);
+  }
+
+  /*
+  * Get meeting recordings list
+  *
+  * @param Strung $meetingId
+  * @return Array $res
+  */
+  public static function getMeetingRecordings(string $meetingId) {
+    $recordingParams = new GetRecordingsParameters();
+    $recordingParams->setMeetingId($meetingId);
+
+    $bbb = self::bbbInstance();
+    if(!$bbb["success"]) return $bbb;
+    $res = $bbb["data"]->getRecordings($recordingParams);
+    if($res->getReturnCode() != "SUCCESS") return Utils::returnErr("Can't get recording videos");    
+    return $res->getRawXml()->recordings->recording;
   }
 
   /*

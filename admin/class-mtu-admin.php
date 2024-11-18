@@ -6,8 +6,6 @@
 * Handle admin requests and admin panel
 */
 
-use Meetingium\Utils\Utils;
-
 defined( 'ABSPATH' ) || exit;
 
 class MTU_Admin {
