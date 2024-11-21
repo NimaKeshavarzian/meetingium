@@ -1,6 +1,7 @@
 <?php
 /*
 * @package meetingium
+* @subpackage meetingium/admin
 *
 * Register and manage post types
 */
@@ -34,4 +35,4 @@ class MTU_PostType {
   }
 } 
 
-return new MTU_PostType();
+new MTU_PostType();

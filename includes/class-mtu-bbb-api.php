@@ -89,7 +89,7 @@ class MTU_BBB_Api {
   /*
   * Get meeting recordings list
   *
-  * @param Strung $meetingId
+  * @param String $meetingId
   * @return Array $res
   */
   public static function getMeetingRecordings(string $meetingId) {

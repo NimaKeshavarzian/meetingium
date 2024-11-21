@@ -16,7 +16,6 @@ final class Meetingium {
 
   private function loadDependencies() {
     require_once MTU_BASE_PATH . "/includes/class-mtu-utils.php";
-    require_once MTU_BASE_PATH . "/includes/class-mtu-post-type.php";
     require_once MTU_BASE_PATH . "/includes/class-mtu-bbb-api.php";
     if (is_admin()) require_once MTU_BASE_PATH . "/admin/class-mtu-admin.php";
   }

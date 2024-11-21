@@ -6,11 +6,21 @@
 * Handle admin requests and admin panel
 */
 
+use Meetingium\Utils\Utils as Utils;
+
 defined( 'ABSPATH' ) || exit;
 
 class MTU_Admin {
   public function __construct() {
+    $this->loadDependencies();
     add_action("admin_menu", array($this, "createAdminMenus"));
+  }
+
+  /*
+  * Require admin classes
+  */
+  private function loadDependencies() {
+    require_once MTU_BASE_PATH . "/admin/class-mtu-post-type.php";
   }
 
   /*
