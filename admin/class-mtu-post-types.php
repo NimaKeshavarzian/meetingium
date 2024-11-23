@@ -6,12 +6,21 @@
 * Register and manage post types
 */
 
+use Meetingium\Utils\Utils as Utils;
+
 defined( 'ABSPATH' ) || exit;
 
-class MTU_PostType {
+class MTU_PostTypes {
+  public $metaBoxesList = array();
+
   public function __construct() {
     // Hook into actions to register post types 
     add_action("init", array($this, "registerPostTypes"));
+
+    require_once MTU_BASE_PATH . "/admin/class-mtu-meta-boxes.php";
+
+    $this->setMetaBoxesList();
+    add_action("save_post", array($this, "savePost"));
   }
 
   public function registerPostTypes() {
@@ -30,9 +39,31 @@ class MTU_PostType {
       "search_items" => "جست و جو کلاس‌ها",
       "not_found" => "هیچ کلاسی پیدا نشد." 
     );
-    $meetingPostType["supports"] = array("title", "editor", "thumbnail");
+    $meetingPostType["supports"] = array("title", "thumbnail");
     if(!post_type_exists("mtu_meeting")) register_post_type("mtu_meeting", $meetingPostType);
+  }
+
+  /*
+  * Set list of meta boxes based on "add post" page current post type
+  */
+  public function setMetaBoxesList() {
+    if($_POST["meeting_users"]) $this->metaBoxesList = array("meeting_users", "meeting_time", "meeting_teacher");
+  }
+
+  /*
+  * Function to run on post saves
+  *
+  * @param Int $postId
+  */
+  public function savePost($postId) {
+    if(!current_user_can('edit_posts', $postId)) return;
+
+    foreach($this->metaBoxesList as $metaBox) {
+      if(!$_POST[$metaBox]) return;
+    }
+
+    MTU_MetaBoxes::saveMetaBoxesData($postId, $this->metaBoxesList);
   }
 } 
 
-new MTU_PostType();
+new MTU_PostTypes();

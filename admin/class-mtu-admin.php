@@ -20,7 +20,7 @@ class MTU_Admin {
   * Require admin classes
   */
   private function loadDependencies() {
-    require_once MTU_BASE_PATH . "/admin/class-mtu-post-type.php";
+    require_once MTU_BASE_PATH . "/admin/class-mtu-post-types.php";
   }
 
   /*
