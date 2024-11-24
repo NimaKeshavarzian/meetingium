@@ -18,6 +18,7 @@ class MTU_PostTypes {
     add_action("init", array($this, "registerPostTypes"));
 
     require_once MTU_BASE_PATH . "/admin/class-mtu-meta-boxes.php";
+    require_once MTU_BASE_PATH . "/admin/class-mtu-meeting.php";
 
     $this->setMetaBoxesList();
     add_action("save_post", array($this, "savePost"));
@@ -63,6 +64,9 @@ class MTU_PostTypes {
     }
 
     MTU_MetaBoxes::saveMetaBoxesData($postId, $this->metaBoxesList);
+    if(!get_post_meta($postId, "_mtu_meeting_id", true)) {
+      MTU_Meeting::create($postId, sanitize_text_field($_POST["post_title"]));
+    }
   }
 } 
 
