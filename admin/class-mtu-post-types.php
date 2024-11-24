@@ -22,6 +22,7 @@ class MTU_PostTypes {
 
     $this->setMetaBoxesList();
     add_action("save_post", array($this, "savePost"));
+    add_action("before_delete_post", "MTU_Meeting::delete");
   }
 
   public function registerPostTypes() {

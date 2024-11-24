@@ -18,7 +18,7 @@ class MTU_Meeting {
   * @param Int $postId
   * @param String $meetingName Title for the meeting
   */
-  public static function create($postId, string $meetingName) {
+  public static function create(int $postId, string $meetingName) {
     if(!$postId || !$meetingName) return;
     $meeting = MTU_BBB_Api::createMeeting($meetingName);
     if(!$meeting["success"]) return Utils::returnErr($meeting["message"]);
@@ -30,5 +30,18 @@ class MTU_Meeting {
     add_post_meta($postId, "_mtu_meeting_attendee_pw", $meeting->getAttendeePassword());
 
     return Utils::returnData($meeting);
+  }
+
+  /*
+  * Remove meeting
+  *
+  * @param Int $postId
+  */
+  public static function delete(int $postId) {
+    if(!current_user_can("delete_post", $postId)) return;
+    $meetingId = get_post_meta("_mtu_meeting_id", true);
+    $moderatorPw = get_post_meta("_mtu_meeting_mod_pw", true);
+
+    $response = MTU_BBB_Api::endMeeting($meetingId, $moderatorPw);
   }
 }
