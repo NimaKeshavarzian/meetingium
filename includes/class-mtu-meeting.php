@@ -1,7 +1,6 @@
 <?php
 /*
 * @package meetingium
-* @subpackage meetingium/admin
 *
 * Create, join & delete meetings using BigBlueButton api and wordpress meta keys
 */
@@ -30,6 +29,32 @@ class MTU_Meeting {
     add_post_meta($postId, "_mtu_meeting_attendee_pw", $meeting->getAttendeePassword());
 
     return Utils::returnData($meeting);
+  }
+
+  /*
+  * Join meetings
+  *
+  * @param Int $postId
+  * @param String $password Password to join (moderatorPw for admin and attendeePw for normal clients)
+  * @param String $displayName User name to display in the meeting
+  */
+  public static function join(int $postId, string $password, string $displayName) {
+    $postMeta = get_post_meta($postId, "", true);
+    $postMeta = array_combine(array_keys($postMeta), array_column($postMeta, '0'));
+    $meetingData = array(
+      "meeting_name" => get_the_title($postId),
+      "meeting_id" => $postMeta["_mtu_meeting_id"],
+      "mod_pw" => $postMeta["_mtu_meeting_mod_pw"],
+      "attendeePw" => $postMeta["_mtu_meeting_attendee_pw"]
+    );
+
+    $meeting = MTU_BBB_Api::createMeeting($meetingData["meeting_name"], $meetingData["meeting_id"], $meetingData["mod_pw"], $meetingData["attendeePw"]);
+    if(!$meeting["success"]) return Utils::returnErr("Can't join meeting. wrong meeting data");
+    $meetingUrl = MTU_BBB_Api::getMeetingUrl($meetingData["meeting_id"], $displayName, $password);
+    if(!$meetingUrl["success"]) return Utils::returnErr("can't join meeting. error in join request to bbb server");
+
+    return Utils::returnData($meetingUrl["data"]);
+    
   }
 
   /*

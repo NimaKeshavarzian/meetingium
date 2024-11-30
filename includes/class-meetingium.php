@@ -17,11 +17,9 @@ final class Meetingium {
   private function loadDependencies() {
     require_once MTU_BASE_PATH . "/includes/class-mtu-utils.php";
     require_once MTU_BASE_PATH . "/includes/class-mtu-bbb-api.php";
+    require_once MTU_BASE_PATH . "/includes/class-mtu-meeting.php";
     if (is_admin()) require_once MTU_BASE_PATH . "/admin/class-mtu-admin.php";
   }
-
-  // Hook into wordpress actions and filters
-  private function initHooks() {}
 
   /**
   * @return self 
