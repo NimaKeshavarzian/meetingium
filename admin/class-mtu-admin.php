@@ -14,6 +14,7 @@ class MTU_Admin {
   public function __construct() {
     $this->loadDependencies();
     add_action("admin_menu", array($this, "createAdminMenus"));
+    add_action("admin_enqueue_scripts", array($this, "loadAdminStyles"));
   }
 
   /*
@@ -21,6 +22,7 @@ class MTU_Admin {
   */
   private function loadDependencies() {
     require_once MTU_BASE_PATH . "/admin/class-mtu-post-types.php";
+    require MTU_BASE_PATH . "/admin/class-mtu-admin-ajax.php";
   }
 
   /*
@@ -68,6 +70,14 @@ class MTU_Admin {
     );
 
     require_once MTU_BASE_PATH . "/admin/partials/mtu-settings-display.php"; 
+  }
+
+  /*
+  * Load admin custom styles
+  */
+  public function loadAdminStyles() {
+    wp_register_style("mtu_admin", Utils::plguinUrl() . "/assets/css/admin.css");
+    wp_enqueue_style("mtu_admin");
   }
 
 }

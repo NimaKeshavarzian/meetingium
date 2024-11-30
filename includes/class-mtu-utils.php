@@ -11,6 +11,15 @@ defined( 'ABSPATH' ) || exit;
 
 class Utils {
   /**
+  * Get plugin base url
+  *
+  * @return String pugin url
+  */
+  public static function plguinUrl() {
+    return plugin_dir_url(dirname(__FILE__));
+  }
+  
+  /**
   * Create logs
   *
   * @param String $msg The log message

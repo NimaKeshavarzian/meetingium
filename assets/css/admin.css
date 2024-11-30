@@ -1,0 +1,27 @@
+.join_meeting.column-join_meeting {
+  position: relative;
+  min-height: 45px;
+}
+
+.mtu_join {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  border: 1px solid #28a745;
+  border-radius: 10px;
+  transition-duration: .3s;
+  cursor: pointer;
+}
+.mtu_join a {
+  display: block;
+  padding: .4em 1.5em;
+  font-size: 17px;
+  color: #28a745;
+}
+.mtu_join:hover {
+  background: #28a745;
+}
+.mtu_join:hover a {
+  color: #fff;
+}

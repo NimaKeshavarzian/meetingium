@@ -69,4 +69,19 @@ class MTU_Meeting {
 
     $response = MTU_BBB_Api::endMeeting($meetingId, $moderatorPw);
   }
+
+
+  /*
+  * Add custom columns to "meeting" post list
+  */
+  public static function addCustomColumns() {
+    add_filter("manage_mtu_meeting_posts_columns", function($columns) {
+      $columns["join_meeting"] = "";
+      return $columns;
+    });
+    add_action("manage_mtu_meeting_posts_custom_column", function($column, $postId) {
+      if($column == "join_meeting") echo "<div class=\"mtu_join\"><a href=".esc_url(wp_nonce_url(admin_url("admin-ajax.php?action=mtu_join_meeting&post_id=$postId"), "mtu_join_meeting"))."\">پیوستن</a></div>";
+    }, 10, 2);
+  }
+
 }

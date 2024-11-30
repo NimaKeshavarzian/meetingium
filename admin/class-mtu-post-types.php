@@ -18,8 +18,10 @@ class MTU_PostTypes {
     add_action("init", array($this, "registerPostTypes"));
 
     require_once MTU_BASE_PATH . "/admin/class-mtu-meta-boxes.php";
-
     $this->setMetaBoxesList();
+    MTU_Meeting::addCustomColumns(); // Add custom columns to "meeting" posts list
+
+    add_action("admin_post_mtu_meeting_join", "MTU_Meeting::joinFromAdmin");
     add_action("save_post", array($this, "savePost"));
     add_action("before_delete_post", "MTU_Meeting::delete");
   }
