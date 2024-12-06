@@ -3,47 +3,21 @@
 * @package meetingium
 * @subpackage meetingium/admin
 *
-* Register and manage post types
+* Manage post types in admin side
 */
-
-use Meetingium\Utils\Utils as Utils;
 
 defined( 'ABSPATH' ) || exit;
 
-class MTU_PostTypes {
+class MTU_AdminPostTypes {
   public $metaBoxesList = array();
 
   public function __construct() {
-    // Hook into actions to register post types 
-    add_action("init", array($this, "registerPostTypes"));
-
     require_once MTU_BASE_PATH . "/admin/class-mtu-meta-boxes.php";
     $this->setMetaBoxesList();
     MTU_Meeting::addCustomColumns(); // Add custom columns to "meeting" posts list
 
     add_action("save_post", array($this, "savePost"));
     add_action("before_delete_post", "MTU_Meeting::delete");
-  }
-
-  public function registerPostTypes() {
-    $meetingPostType = array(
-      "public" => true,
-      "menu_position" => 25,
-      "menu_icon" => "dashicons-align-full-width"
-    );
-    $meetingPostType["labels"] = array(
-      "name" => "کلاس‌ها", 
-      "add_new" => "کلاس جدید",
-      "add_new_item" => "اضافه کردن کلاس جدید",
-      "new_item" => "کلاس جدید",
-      "edit_item" => "ویرایش کلاس",
-      "all_items" => "همه کلاس‌ها",
-      "search_items" => "جست و جو کلاس‌ها",
-      "not_found" => "هیچ کلاسی پیدا نشد." 
-    );
-    $meetingPostType["supports"] = array("title");
-    $meetingPostType["taxonomies"] = array("category");
-    if(!post_type_exists("mtu_meeting")) register_post_type("mtu_meeting", $meetingPostType);
   }
 
   /*
@@ -73,4 +47,4 @@ class MTU_PostTypes {
 
 } 
 
-new MTU_PostTypes();
+new MTU_AdminPostTypes();

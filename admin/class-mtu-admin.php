@@ -21,7 +21,7 @@ class MTU_Admin {
   * Require admin classes
   */
   private function loadDependencies() {
-    require_once MTU_BASE_PATH . "/admin/class-mtu-post-types.php";
+    require_once MTU_BASE_PATH . "/admin/class-mtu-admin-post-types.php";
     require MTU_BASE_PATH . "/admin/class-mtu-admin-ajax.php";
   }
 
