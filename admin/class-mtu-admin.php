@@ -69,7 +69,7 @@ class MTU_Admin {
       "salt" => get_option("meetingium_bbb_salt")
     );
 
-    require_once MTU_BASE_PATH . "/admin/partials/mtu-settings-display.php"; 
+    require_once MTU_BASE_PATH . "/admin/templates/mtu-settings-display.php"; 
   }
 
   /*

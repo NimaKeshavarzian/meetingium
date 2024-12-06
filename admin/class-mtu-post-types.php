@@ -41,9 +41,9 @@ class MTU_PostTypes {
       "search_items" => "جست و جو کلاس‌ها",
       "not_found" => "هیچ کلاسی پیدا نشد." 
     );
-    $meetingPostType["supports"] = array("title", "thumbnail");
+    $meetingPostType["supports"] = array("title");
+    $meetingPostType["taxonomies"] = array("category");
     if(!post_type_exists("mtu_meeting")) register_post_type("mtu_meeting", $meetingPostType);
-
   }
 
   /*
@@ -70,6 +70,7 @@ class MTU_PostTypes {
       MTU_Meeting::create($postId, sanitize_text_field($_POST["post_title"]));
     }
   }
+
 } 
 
 new MTU_PostTypes();

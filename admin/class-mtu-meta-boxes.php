@@ -29,7 +29,7 @@ class MTU_MetaBoxes {
     <tbody>
     <tr>
     <th scope="row"><label for="meeting_users">لیست کاربران:</label></th>
-    <td><input type="text" name="meeting_users" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_users", true); ?>" placeholder="مثال: کاربر۱, کاربر۲, ..."> </td>
+    <td><input type="text" name="meeting_users" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_users", true); ?>" placeholder="مثال: کاربر۱,کاربر۲,..."> </td>
     </tr>
     <tr>
     <th scope="row"><label for="meeting_time">زمان برگزاری:</label></th>
