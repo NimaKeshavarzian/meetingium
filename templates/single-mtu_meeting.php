@@ -37,7 +37,24 @@ if(!Utils::checkAccessToMeeting($postId)) Utils::redirect(home_url());
             </p>
             <p class="meta-name">زمان برگزاری</p>
         </div>
-        <a href="<?= esc_url(wp_nonce_url(admin_url("admin-ajax.php?action=mtu_join_meeting&post_id=$postId"), "mtu_join_meeting")); ?>" class="join-btn">ورود به کلاس</a>
+        <a href="<?= esc_url(wp_nonce_url(admin_url("admin-ajax.php?action=mtu_join_meeting&post_id=$postId"), "mtu_join_meeting")); ?>" class="mtu-btn">ورود به کلاس</a>
+    </div>
+
+    <h3 class="recordings-header">جلسات برگزار شده</h3>
+    <div class="divider"></div>
+    <div class="recordings">
+        <div class="item">
+        <div class="item-mark"></div>
+        <div class="item-main-data">
+            <h3 class="meeting-title">جلسه چهارشنبه ۳۰ مرداد</h3>
+            <p class="meeting-category"><?= the_title(); ?></p>
+        </div>
+        <div class="item-meta meeting-status">
+            <p class="meta-value">۱۴۰۳/۰۵/۳۰</p>
+            <p class="meta-name">زمان برگزاری</p>
+        </div>
+        <a href="" class="mtu-btn">مشاهده آفلاین</a>
+        </div>
     </div>
 </div>
 

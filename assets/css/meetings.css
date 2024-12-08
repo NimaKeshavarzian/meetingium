@@ -1,43 +1,112 @@
-.meetings-container {
-    width: 80%;
-    margin: 20px auto;
+p {
+    margin: 0 !important;
 }
 
-.meeting-card {
+.meetings-list {
+    width: 100%;
+    background: #f5f5f5;
+    border-radius: 4px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+
+.meetings-list .item {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
     align-items: center;
-    background-color: #fff;
-    margin-bottom: 15px;
-    padding: 20px;
-    border: 2px solid #eee;
-    border-radius: 8px;
-}
-
-.meeting-details h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
-}
-
-.meeting-details p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #666;
-}
-
-.view-meeting {
-    text-decoration: none;
-    background-color: #007bff;
-    color: #fff !important;
-    border: none;
-    cursor: pointer;
+    padding: .9em 1.5em;
+    border: 2px solid #f5f5f5;
     border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    background: #fff;
 }
 
-.view-meeting:hover {
-    background-color: #0056b3;
+.meetings-list .item>* {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.meetings-list .item-mark {
+    width: .4em;
+    height: 1.75em;
+    margin-left: 1em;
+    background: #28a745;
+    border-radius: 25px;
+}
+
+.meetings-list .item .meeting-title,
+.meetings-list .item-meta .meta-value {
+    font-size: 18px;
+    margin-bottom: .3em;
+}
+
+.meetings-list .item .meeting-category,
+.meetings-list .item-meta .meta-name {
+    font-size: 14px;
+    line-height: 26px;
+    color: #8f8f8f;
+}
+
+.meetings-list .item-main-data {
+    flex: 2;
+}
+
+.meetings-list .item-meta {
+    flex: .85;
+    text-align: center;
+}
+
+.meetings-list .item-meta .meta-value {
+    font-size: 17px;
+    line-height: 23px;
+    font-weight: 600;
+}
+
+.meetings-list .item-meta .meta-name {
+    font-size: 12px;
+}
+
+.meetings-list .mtu-btn {
+    flex: .4;
+    text-align: center;
+    border-radius: 10px;
+    background: #007bff;
+    color: #fff;
+    padding: .5em 0;
+    font-size: 16px;
+    font-weight: 400;
+    transition-duration: .3s;
+    text-decoration: none !important;
+}
+
+@media screen and (max-width: 790px) {
+    .meetings-list .item .item-main-data {
+        flex-basis: calc(100% - 1.4em);
+    }
+
+    .meetings-list .item-meta {
+        text-align: unset;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .meetings-list .item-meta {
+        flex-basis: 50%;
+        text-align: center;
+    }
+
+    .meetings-list .mtu-btn {
+        flex-basis: 100%;
+        margin-top: .6em;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .meetings-list .item-meta {
+        flex-basis: 100%;
+        text-align: unset;
+        margin-top: .5em;
+    }
 }
