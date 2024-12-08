@@ -12,6 +12,7 @@ use BigBlueButton\BigBlueButton;
 use BigBlueButton\Parameters\CreateMeetingParameters;
 use BigBlueButton\Parameters\EndMeetingParameters;
 use BigBlueButton\Parameters\GetRecordingsParameters;
+use BigBlueButton\Parameters\IsMeetingRunningParameters;
 use BigBlueButton\Parameters\JoinMeetingParameters;
 
 defined( 'ABSPATH' ) || exit;
@@ -101,6 +102,21 @@ class MTU_BBB_Api {
     $res = $bbb["data"]->getRecordings($recordingParams);
     if($res->getReturnCode() != "SUCCESS") return Utils::returnErr("Can't get recording videos");    
     return $res->getRawXml()->recordings->recording;
+  }
+
+  /*
+  * Check is meeting running
+  *
+  * @param String $meetingId
+  * @return Bool
+  */
+  public static function isMeetingRunning(string $meetingId) {
+    $isMeetingRunningParams = new IsMeetingRunningParameters($meetingId);
+    
+    $bbb = self::bbbInstance();
+    if(!$bbb["success"]) return $bbb;
+    $res = $bbb["data"]->isMeetingRunning($isMeetingRunningParams);
+    return $res->isRunning();
   }
 
   /*

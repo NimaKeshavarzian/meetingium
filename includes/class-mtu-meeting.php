@@ -125,9 +125,9 @@ class MTU_Meeting
                         esc_url(
                             wp_nonce_url(
                                 admin_url(
-                                    "admin-ajax.php?action=mtu_join_meeting&post_id=$postId"
+                                    "admin-ajax.php?action=mtu_admin_join_meeting&post_id=$postId"
                                 ),
-                                "mtu_join_meeting"
+                                "mtu_admin_join_meeting"
                             )
                         ) .
                         "\">پیوستن</a></div>";
@@ -163,5 +163,15 @@ class MTU_Meeting
         $meetings = $query->get_posts();
 
         return $meetings;
+    }
+
+    /*
+    * Check is meeting running
+    *
+    * @param Int $postId
+    */
+    public static function isMeetingRunning(int $postId) {
+        $meetingId = get_post_meta($postId, "_mtu_meeting_id", true);
+        return MTU_BBB_Api::isMeetingRunning($meetingId);
     }
 }

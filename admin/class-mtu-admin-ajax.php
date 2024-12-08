@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 
 class MTU_AdminAjax {
   public function __construct() {
-    add_action("wp_ajax_mtu_join_meeting", array($this, "joinMeetingFromAdmin"));
+    add_action("wp_ajax_mtu_admin_join_meeting", array($this, "joinMeetingFromAdmin"));
   }
 
   /*

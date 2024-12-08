@@ -5,14 +5,16 @@
 * Register post types
 */
 
-defined( 'ABSPATH' ) || exit;
+use Meetingium\Utils\Utils;
 
-use Meetingium\Utils\Utils as Utils;
+defined( 'ABSPATH' ) || exit;
 
 class MTU_PostTypes {
   public function __construct() {
     // Hook into actions to register post types 
     add_action("init", array($this, "registerPostTypes"));
+    // Load single pages templates
+    add_filter("template_include", array($this, "loadSinglePageTemplate"));
   }
 
   public function registerPostTypes() {
@@ -34,6 +36,16 @@ class MTU_PostTypes {
     $meetingPostType["supports"] = array("title");
     $meetingPostType["taxonomies"] = array("category");
     if(!post_type_exists("mtu_meeting")) register_post_type("mtu_meeting", $meetingPostType);
+  }
+
+  /*
+  * Load single page templates for custom post types
+  */
+  public function loadSinglePageTemplate($template) {
+    if(is_singular("mtu_meeting")) {
+      $template = MTU_BASE_PATH . "/templates/single-mtu_meeting.php";
+    }
+    return $template;
   }
 }
 
