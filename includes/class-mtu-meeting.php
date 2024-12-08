@@ -6,9 +6,9 @@
  */
 
 use Meetingium\BBB_Api\MTU_BBB_Api as MTU_BBB_Api;
-use Meetingium\Utils\Utils as Utils;
+use Meetingium\Utils\Utils;
 
-defined("ABSPATH") || exit();
+defined("ABSPATH") || exit;
 
 class MTU_Meeting
 {

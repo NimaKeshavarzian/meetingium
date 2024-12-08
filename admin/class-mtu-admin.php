@@ -6,7 +6,7 @@
 * Handle admin requests and admin panel
 */
 
-use Meetingium\Utils\Utils as Utils;
+use Meetingium\Utils\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -76,8 +76,7 @@ class MTU_Admin {
   * Load admin custom styles
   */
   public function loadAdminStyles() {
-    wp_register_style("mtu_admin", Utils::plguinUrl() . "/assets/css/admin.css");
-    wp_enqueue_style("mtu_admin");
+    Utils::loadStyle("admin.css", "mtu_admin");
   }
 
 }

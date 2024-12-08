@@ -6,6 +6,8 @@
 * Handle admin ajax requests
 */
 
+use Meetingium\Utils\Utils;
+
 defined( 'ABSPATH' ) || exit;
 
 class MTU_AdminAjax {
@@ -25,10 +27,7 @@ class MTU_AdminAjax {
     if(!current_user_can("edit_posts", $postId)) return;
 
     $url = MTU_Meeting::join($postId, $meetingPass, $userDisplayName);
-    if($url["success"]) {
-      header("location: ".$url["data"]);
-      exit;
-    }
+    if($url["success"]) Utils::redirect($url["data"]);
     wp_die("مشکلی در پیوستن به کلاس پیش آمده است.");
   }
 }

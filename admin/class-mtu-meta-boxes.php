@@ -6,7 +6,7 @@
 * add meta boxes for custom post types 
 */
 
-use Meetingium\Utils\Utils as Utils;
+use Meetingium\Utils\Utils;
 
 defined( 'ABSPATH' ) || exit;
 

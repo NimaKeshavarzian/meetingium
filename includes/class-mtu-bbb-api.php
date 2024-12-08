@@ -7,7 +7,7 @@
 
 namespace Meetingium\BBB_Api;
 
-use Meetingium\Utils\Utils as Utils;
+use Meetingium\Utils\Utils;
 use BigBlueButton\BigBlueButton;
 use BigBlueButton\Parameters\CreateMeetingParameters;
 use BigBlueButton\Parameters\EndMeetingParameters;
