@@ -5,9 +5,9 @@
 * Shortcodes
 */
 
-defined( 'ABSPATH' ) || exit;
+use Meetingium\Utils\Utils;
 
-use Meetingium\Utils\Utils as Utils;
+defined( 'ABSPATH' ) || exit;
 
 class MTU_Shortcode {
   public function __construct() {
@@ -19,21 +19,11 @@ class MTU_Shortcode {
   * Return meetings List shortcode
   */
   public function meetingsShortcode() {
-    $this->loadStyle("meetings.css");
+    Utils::loadStyle("meetings.css", "mtu_meetings_style");
 
     ob_start();
-    require_once MTU_BASE_PATH . "/templates/mtu-meeting-shortcode.php";
+    require_once MTU_BASE_PATH . "/templates/mtu-meetings-shortcode.php";
     return ob_get_clean();
-  }
-
-  /*
-  * Load css styles for shortcodes
-  *
-  * @param String $cssFileName name of css file to load
-  */
-  public function loadStyle(string $cssFileName) {
-    wp_register_style("mtu_front", Utils::plguinUrl() . "/assets/css/$cssFileName");
-    wp_enqueue_style("mtu_front");
   }
 }
 

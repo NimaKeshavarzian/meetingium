@@ -1,24 +1,22 @@
 <?php
 /*
- * @package Meetingium
- * @subpackage Meetingium/templates
- *
- * Meetings list page
- */
+* @package Meetingium
+* @subpackage Meetingium/templates
+*
+* Meetings list page
+*/
 
-defined("ABSPATH") || exit();
-use Meetingium\Utils\Utils as Utils;
-if (!is_user_logged_in()) {
-    wp_redirect(wp_login_url());
-    exit();
-}
+defined("ABSPATH") || exit;
+
+use Meetingium\Utils\Utils;
+
+if (!is_user_logged_in()) Utils::redirect(wp_login_url());
 
 $meetings = MTU_Meeting::getMeetingsList();
 ?>
-<div class="meeting-container">
+<div class="meetings-container">
 <?php foreach ($meetings as $meeting) {
-    $meetingUsers = explode(",", get_post_meta($meeting->ID, "_mtu_meeting_users", true));
-    if(!in_array(wp_get_current_user()->display_name, $meetingUsers)) continue;
+    if(!Utils::checkAccessToMeeting($meeting->ID)) continue;
 ?>
   <div class="meeting-card">
     <div class="meeting-details">
