@@ -54,7 +54,18 @@ class Utils {
     return $error;
   }
 
-  /**
+  /*
+  * Check does user have access to meeting
+  *
+  * @param Int $postId
+  * @return Bool
+  */
+  public static function checkAccessToMeeting(int $postId) {
+    $usersWithAccess = explode(",", get_post_meta($postId, "_mtu_meeting_users", true));
+    return in_array(wp_get_current_user()->display_name, $usersWithAccess);
+  }
+
+  /*
   * Generate random string
   *
   * @param Int $length Length of generated random string
@@ -69,5 +80,26 @@ class Utils {
       $randomString .= $characters[$randomIndex];
     }
     return $randomString;
+  }
+
+  /*
+  * Load css style in page
+  *
+  * @param String $cssFile css file path from "/assets/css/" to load
+  * @param String $handle
+  */
+  public static function loadStyle(string $cssFile, string $handle) {
+    wp_register_style($handle, self::plguinUrl() . "/assets/css/$cssFile");
+    wp_enqueue_style($handle);
+  }
+
+  /*
+  * Redirect user and exit
+  *
+  * @param String $url
+  */
+  public static function redirect(string $url) {
+    echo "<script>window.location = \"$url\";</script>";
+    exit;
   }
 }
