@@ -1,5 +1,6 @@
 window.onload = async () => {
     await getRecordings();
+    document.getElementById("recordings-container").classList.add("animated");
 }
 
 const getRecordings = async () => {
@@ -21,6 +22,7 @@ const getRecordings = async () => {
     if(!recordings.success) return recordingsPlaceholder.innerText = "امکان نمایش جلسات ضبط شده وجود ندارد.";
     if(recordings.data.length == 0) return recordingsPlaceholder.innerText = "جلسه ضبط شده‌ای برای نمایش وجود ندارد";
 
+    recordingsPlaceholder.innerText = "";
     recordings.data.forEach(recording => {
         recordingsContainer.innerHTML += `
         <div class="item">
@@ -37,5 +39,4 @@ const getRecordings = async () => {
             </div>
             `;
     });
-    recordingsContainer.classList.add("animated");
 }

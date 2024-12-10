@@ -18,6 +18,7 @@ while (have_posts()) :
     the_post();
 
     $postId = get_the_ID();
+    $category = get_the_category();
     if (!Utils::checkAccessToMeeting($postId)) Utils::redirect(home_url());
 ?>
     <div class="meeting-single">
@@ -27,7 +28,7 @@ while (have_posts()) :
             <div class="item-mark"></div>
             <div class="item-main-data">
                 <h3 class="meeting-title"><?= the_title(); ?></h3>
-                <p class="meeting-category"><?= get_the_category()[0]->name; ?></p>
+                <p class="meeting-category"><?= (isset($category[0]->name)) ? $category[0]->name : "" ?></p>
             </div>
             <div class="item-meta meeting-status">
                 <p class="meta-value">
@@ -41,7 +42,7 @@ while (have_posts()) :
         <h3 class="recordings-header">جلسات برگزار شده</h3>
         <div class="divider"></div>
         <div class="recordings" id="recordings-container">
-            <h4 id="recordings-placeholder"></h4>
+            <h4 id="recordings-placeholder">درحال دریافت جلسات ضبط شده...</h4>
         </div>
     </div>
 

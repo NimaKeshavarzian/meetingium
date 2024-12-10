@@ -17,12 +17,13 @@ $meetings = MTU_Meeting::getMeetingsList();
 <div class="meetings-list">
   <?php foreach ($meetings as $meeting) {
     if (!Utils::checkAccessToMeeting($meeting->ID)) continue;
+    $category = get_the_category($meeting->ID);
   ?>
     <div class="item">
       <div class="item-mark"></div>
       <div class="item-main-data">
         <h3 class="meeting-title"><?= $meeting->post_title ?></h3>
-        <p class="meeting-category"><?= get_the_category($meeting->ID)[0]->name ?></p>
+        <p class="meeting-category"><?= (isset($category[0]->name)) ? $category[0]->name : "" ?></p>
       </div>
       <div class="item-meta">
         <p class="meta-value"><?= get_post_meta($meeting->ID, "_mtu_meeting_time", true) ?></p>

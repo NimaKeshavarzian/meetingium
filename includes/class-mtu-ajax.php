@@ -21,11 +21,13 @@ class MTU_Ajax {
     */
     public function joinMeeting() {
         $postId = $_GET["post_id"];
+        $isUserAdmin = current_user_can('manage_options');
         $userDisplayName = wp_get_current_user()->display_name;
-        $pass = (current_user_can('manage_options')) ? get_post_meta($postId, "_mtu_meeting_moderator_pw", true) : get_post_meta($postId, "_mtu_meeting_attendee_pw", true);
+        $pass = ($isUserAdmin) ? get_post_meta($postId, "_mtu_meeting_mod_pw", true) : get_post_meta($postId, "_mtu_meeting_attendee_pw", true);
 
         if(!$postId) return;
-        if(!MTU_Meeting::isMeetingRunning($postId) || Utils::checkAccessToMeeting($postId)) Utils::redirect(home_url());
+        if(!Utils::checkAccessToMeeting($postId)) Utils::redirect(home_url());
+        if(!$isUserAdmin && !MTU_Meeting::isMeetingRunning($postId)) Utils::redirect(home_url());
         $url = MTU_Meeting::join($postId, $pass, $userDisplayName);
         if($url["success"]) Utils::redirect($url["data"]);
         wp_die("مشکلی در پیوستن به کلاس پیش آمده است.");

@@ -37,8 +37,8 @@ class MTU_BBB_Api {
     $createMeetingParams->setAttendeePassword($attendeePw);
     $createMeetingParams->setLogoutUrl(home_url());
     $createMeetingParams->setRecord(true);
-    $createMeetingParams->setAllowStartStopRecording(true);
-	  $createMeetingParams->setAutoStartRecording(false);
+    $createMeetingParams->setAllowStartStopRecording(false);
+	  $createMeetingParams->setAutoStartRecording(true);
     $createMeetingParams->setMuteOnStart(true);
     $createMeetingParams->setLockSettingsDisableNote(true);
     $createMeetingParams->setLockSettingsDisablePrivateChat(true);
