@@ -7,6 +7,7 @@
 
 use Meetingium\BBB_Api\MTU_BBB_Api as MTU_BBB_Api;
 use Meetingium\Utils\Utils;
+use Morilog\Jalali\Jalalian;
 
 defined("ABSPATH") || exit;
 
@@ -163,6 +164,28 @@ class MTU_Meeting
         $meetings = $query->get_posts();
 
         return $meetings;
+    }
+
+    /*
+    * Get meeting recordings
+    *
+    * @param Int $postId
+    */
+    public static function getRecordings(int $postId) {
+        $meetingId = get_post_meta($postId, "_mtu_meeting_id", true);
+        $recordings = MTU_BBB_Api::getRecordings($meetingId);
+        $res = array();
+
+        if(!$recordings["success"]) return $recordings;
+        foreach($recordings["data"] as $recording) {
+            array_push($res, [
+                "url" => $recording->playback->format->url,
+                "title" => "جلسه ". Jalalian::forge($recording->startTime/1000)->format("%A %d %B"),
+                "date" => Jalalian::forge($recording->startTime/1000)->format("%Y/%m/%d")
+            ]);
+        }
+
+        return Utils::returnData($res);
     }
 
     /*

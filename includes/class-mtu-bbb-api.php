@@ -94,7 +94,7 @@ class MTU_BBB_Api {
   * @param String $meetingId
   * @return Array $res
   */
-  public static function getMeetingRecordings(string $meetingId) {
+  public static function getRecordings(string $meetingId) {
     $recordingParams = new GetRecordingsParameters();
     $recordingParams->setMeetingId($meetingId);
 
@@ -102,7 +102,7 @@ class MTU_BBB_Api {
     if(!$bbb["success"]) return $bbb;
     $res = $bbb["data"]->getRecordings($recordingParams);
     if($res->getReturnCode() != "SUCCESS") return Utils::returnErr("Can't get recording videos");    
-    return $res->getRawXml()->recordings->recording;
+    return Utils::returnData($res->getRawXml()->recordings->recording);
   }
 
   /*
