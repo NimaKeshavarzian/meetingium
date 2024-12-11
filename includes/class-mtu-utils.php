@@ -101,5 +101,18 @@ class Utils {
   public static function redirect(string $url) {
     echo "<script>window.location = \"$url\";</script>";
     exit;
+
+  }
+
+  /*
+  * Replace english numbers with persian
+  *
+  * @param String $str
+  */
+  public static function replaceEnNum($str) {
+    $en = array("0","1","2","3","4","5","6","7","8","9");
+    $fa = array("۰","۱","۲","۳","۴","۵","۶","۷","۸","۹");
+    
+    return str_replace($en, $fa, $str);
   }
 }

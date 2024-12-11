@@ -180,8 +180,8 @@ class MTU_Meeting
         foreach($recordings["data"] as $recording) {
             array_push($res, [
                 "url" => $recording->playback->format->url,
-                "title" => "جلسه ". Jalalian::forge($recording->startTime/1000)->format("%A %d %B"),
-                "date" => Jalalian::forge($recording->startTime/1000)->format("%Y/%m/%d")
+                "title" => "جلسه ". Utils::replaceEnNum(Jalalian::forge($recording->startTime/1000)->format("%A %d %B")),
+                "date" => Utils::replaceEnNum(Jalalian::forge($recording->startTime/1000)->format("%Y/%m/%d"))
             ]);
         }
 
