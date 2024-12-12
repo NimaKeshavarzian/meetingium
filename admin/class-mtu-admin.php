@@ -35,7 +35,7 @@ class MTU_Admin {
       "میتینگیوم",
       "manage_options",
       "meetingium",
-      "",
+      false,
       "dashicons-welcome-learn-more",
       25
     );
@@ -45,7 +45,7 @@ class MTU_Admin {
       "تنظیمات میتینگیوم",
       "تنظیمات",
       "manage_options",
-      "mtu_settings",
+      "meetingium",
       array($this, "displaySettingsPage")
     );
     // Add Pamphlet sub-menu item

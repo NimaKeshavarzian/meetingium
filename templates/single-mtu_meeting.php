@@ -20,6 +20,7 @@ while (have_posts()) :
     $postId = get_the_ID();
     $category = get_the_category();
     if (!Utils::checkAccessToMeeting($postId)) Utils::redirect(home_url());
+    $isMeetingRunning = MTU_Meeting::isMeetingRunning($postId);
 ?>
     <div class="meeting-single">
         <h2 class="meeting-title"><?= the_title(); ?></h2>
@@ -32,11 +33,13 @@ while (have_posts()) :
             </div>
             <div class="item-meta meeting-status">
                 <p class="meta-value">
-                    <?= (MTU_Meeting::isMeetingRunning($postId)) ? "درحال برگزاری" : get_post_meta($postId, "_mtu_meeting_time", true); ?>
+                    <?= ($isMeetingRunning) ? "درحال برگزاری" : get_post_meta($postId, "_mtu_meeting_time", true); ?>
                 </p>
                 <p class="meta-name">زمان برگزاری</p>
             </div>
+            <?php if(current_user_can("edit_posts", $postId) || $isMeetingRunning) : ?>
             <a href="<?= esc_url(wp_nonce_url(admin_url("admin-ajax.php?action=mtu_join_meeting&post_id=$postId"), "mtu_join_meeting")) ?>" class="mtu-btn">ورود به کلاس</a>
+            <?php endif; ?>
         </div>
 
         <h3 class="recordings-header">جلسات برگزار شده</h3>
