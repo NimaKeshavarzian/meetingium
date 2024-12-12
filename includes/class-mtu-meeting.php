@@ -11,8 +11,7 @@ use Morilog\Jalali\Jalalian;
 
 defined("ABSPATH") || exit;
 
-class MTU_Meeting
-{
+class MTU_Meeting {
     /*
      * Create meetings
      *
@@ -148,7 +147,7 @@ class MTU_Meeting
     {
         $userName = wp_get_current_user()->display_name;
         if (!$userName) return;
-        
+
         $queryArgs = [
             "post_type" => "mtu_meeting",
             "meta_query" => [
@@ -171,17 +170,18 @@ class MTU_Meeting
     *
     * @param Int $postId
     */
-    public static function getRecordings(int $postId) {
+    public static function getRecordings(int $postId)
+    {
         $meetingId = get_post_meta($postId, "_mtu_meeting_id", true);
         $recordings = MTU_BBB_Api::getRecordings($meetingId);
         $res = array();
 
-        if(!$recordings["success"]) return $recordings;
-        foreach($recordings["data"] as $recording) {
+        if (!$recordings["success"]) return $recordings;
+        foreach ($recordings["data"] as $recording) {
             array_push($res, [
                 "url" => $recording->playback->format->url,
-                "title" => "جلسه ". Utils::replaceEnNum(Jalalian::forge($recording->startTime/1000)->format("%A %d %B")),
-                "date" => Utils::replaceEnNum(Jalalian::forge($recording->startTime/1000)->format("%Y/%m/%d"))
+                "title" => "جلسه " . Utils::replaceEnNum(Jalalian::forge($recording->startTime / 1000)->format("%A %d %B")),
+                "date" => Utils::replaceEnNum(Jalalian::forge($recording->startTime / 1000)->format("%Y/%m/%d"))
             ]);
         }
 
@@ -193,7 +193,8 @@ class MTU_Meeting
     *
     * @param Int $postId
     */
-    public static function isMeetingRunning(int $postId) {
+    public static function isMeetingRunning(int $postId)
+    {
         $meetingId = get_post_meta($postId, "_mtu_meeting_id", true);
         return MTU_BBB_Api::isMeetingRunning($meetingId);
     }

@@ -35,7 +35,20 @@ class MTU_PostTypes {
     );
     $meetingPostType["supports"] = array("title");
     $meetingPostType["taxonomies"] = array("category");
+
+    $pamphletPostType = array(
+      "public" => true,
+      "show_in_menu" => false,
+      "supports" => array("title")
+    );
+    $pamphletPostType["labels"] = array(
+      "name" => "جزوات",
+      "add_new" => "جزوه جدید",
+      "not_found" => "هیچ جزوه‌ای پیدا نشد."
+    );
+
     if(!post_type_exists("mtu_meeting")) register_post_type("mtu_meeting", $meetingPostType);
+    if(!post_type_exists("mtu_pamphlet")) register_post_type("mtu_pamphlet", $pamphletPostType);
   }
 
   /*

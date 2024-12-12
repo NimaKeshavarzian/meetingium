@@ -15,9 +15,10 @@ class MTU_MetaBoxes {
     add_action("add_meta_boxes", array($this, "addMetaBoxes"));
   }
 
-  public function addMetaBoxes() {
-    // Meetings
-    add_meta_box("mtu_meeting_box", "اطلاعات کلاس", array($this, "meetingsHtml"), "mtu_meeting");
+  public function addMetaBoxes($postType) {
+    if($postType == "mtu_meeting") {
+      add_meta_box("mtu_meeting_box", "اطلاعات کلاس", array($this, "meetingsHtml"), "mtu_meeting");
+    }
   }
 
   /*
@@ -51,6 +52,8 @@ class MTU_MetaBoxes {
   * @param Array $metaBoxes List of meta boxes to save
   */
   public static function saveMetaBoxesData($postId, array $metaBoxes) {
+    if(!current_user_can("edit_posts", $postId)) return;
+
     foreach ($metaBoxes as $metaBox) {
       if(isset($_POST[$metaBox])) {
         update_post_meta($postId, "_mtu_$metaBox", sanitize_text_field($_POST["$metaBox"]));

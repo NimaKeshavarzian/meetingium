@@ -48,14 +48,13 @@ class MTU_Admin {
       "meetingium",
       array($this, "displaySettingsPage")
     );
-    // Add Pamphlet sub-menu item
+    // Add Pamphlet sub-menu item to meeting post type top level menu
     add_submenu_page(
-      "meetingium",
+      "edit.php?post_type=mtu_meeting",
       "جزوات",
       "جزوات",
       "manage_options",
-      "mtu_pamphlet",
-      ""
+      "edit.php?post_type=mtu_pamphlet"
     );
   }
 

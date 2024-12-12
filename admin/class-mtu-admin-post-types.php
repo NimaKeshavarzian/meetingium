@@ -40,6 +40,7 @@ class MTU_AdminPostTypes {
     }
 
     MTU_MetaBoxes::saveMetaBoxesData($postId, $this->metaBoxesList);
+    if(!isset($_POST["post_title"])) return;
     if(!get_post_meta($postId, "_mtu_meeting_id", true)) {
       MTU_Meeting::create($postId, sanitize_text_field($_POST["post_title"]));
     }
