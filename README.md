@@ -2,7 +2,7 @@
 
 # Meetingium
 
-Meetingium is a wordpress plugin to manage **BigBlueButton** meetings & sell theme as a product with woocommerce.
+Meetingium is a wordpress plugin to manage **BigBlueButton** meetings through an elegant way.
 
 
 ## Development
