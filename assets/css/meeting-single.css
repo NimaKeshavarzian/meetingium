@@ -1,6 +1,7 @@
 #content {
     background: #fff;
 }
+
 .meeting-single {
     width: 100%;
     display: flex;
@@ -39,7 +40,7 @@
     background: #fff;
 }
 
-.meeting-single .item > * {
+.meeting-single .item>* {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,6 +97,7 @@
     font-weight: 400;
     transition-duration: .2s;
 }
+
 .meeting-single .mtu-btn:hover {
     scale: 1.05;
 }
@@ -115,10 +117,6 @@
     flex-direction: column;
 }
 
-.recordings.animated {
-    animation: load .4s ease;
-}
-
 .recordings .item-mark {
     background: #28a745;
 }
@@ -126,12 +124,14 @@
 .recordings .mtu-btn {
     background: #007bff;
 }
+
 .recordings .item-meta .meta-value {
     color: unset;
     font-weight: 400;
 }
 
-.recordings #recordings-placeholder {
+.recordings #recordings-placeholder,
+.pamphlets #pamphlets-placeholder {
     background: #fff;
     text-align: center;
 }
@@ -164,6 +164,7 @@
     background-color: #f5f5f5;
     z-index: 1;
 }
+
 .pamphlet-list .pamphlet::after {
     inline-size: 100vw;
     block-size: var(--line-thickness);
@@ -179,6 +180,7 @@
     padding: .3em;
     position: relative;
 }
+
 .pamphlet .pamphlet-icon span {
     position: absolute;
     top: 50%;
@@ -196,9 +198,24 @@
     margin: .7em;
 }
 
+.pamphlet-list #pamphlets-placeholder {
+    align-self: center;
+    justify-self: center;
+    margin: 1em 0 .8em;
+}
+
+.animated {
+    animation: load .4s ease;
+}
+
 @keyframes load {
-    0% {opacity: 0;}f5f5f5
-    100% {opacity: 1;}
+    0% {
+        opacity: 0;
+    }
+
+    f5f5f5 100% {
+        opacity: 1;
+    }
 }
 
 @media screen and (max-width: 790px) {

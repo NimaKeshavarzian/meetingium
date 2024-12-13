@@ -50,11 +50,8 @@ while (have_posts()) :
         
         <h3 class="single-part-header pamphlet-header">جزوات کلاس</h3>
         <div class="divider"></div>
-        <div class="item pamphlet-list">
-            <a href="" class="pamphlet">
-                <div class="pamphlet-icon"><span class="dashicons dashicons-media-default"></span></div>
-                <h4 class="pamphlet-name">جزوه جلسه ۱ - مسائل مقدماتی</h4>
-            </a>
+        <div class="item pamphlet-list" id="pamphlets-container">
+            <h4 id="pamphlets-placeholder">درحال دریافت جزوات کلاس...</h4>
         </div>
     </div>
 
@@ -67,6 +64,11 @@ wp_enqueue_script("mtu-meeting-script", Utils::plguinUrl() . "/assets/js/meeting
 wp_localize_script("mtu-meeting-script", "recordingsObject", array(
     "ajaxUrl" => admin_url('admin-ajax.php'),
     "nonce" => wp_create_nonce("recordings"),
+    "postId" => $postId
+));
+wp_localize_script("mtu-meeting-script", "pamphletsObject", array(
+    "ajaxUrl" => admin_url("admin-ajax.php"),
+    "nonce" => wp_create_nonce("pamphlets"),
     "postId" => $postId
 ));
 

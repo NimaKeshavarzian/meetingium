@@ -14,6 +14,7 @@ class MTU_Ajax {
     public function __construct() {
         add_action("wp_ajax_mtu_join_meeting", array($this, "joinMeeting"));
         add_action("wp_ajax_mtu_recordings", array($this, "getRecordings"));
+        add_action("wp_ajax_mtu_pamphlets", array($this, "getPamphlets"));
     }
 
     /*
@@ -45,6 +46,40 @@ class MTU_Ajax {
         }
         $recordings = MTU_Meeting::getRecordings($postId);
         echo json_encode($recordings);
+        exit;
+    }
+
+    /*
+    * Get pamphlets
+    */
+    public function getPamphlets() {
+        $postId = $_POST["post_id"];
+        
+        if(!$postId) {
+            echo json_encode(Utils::returnErr("Can't get postId"));
+            exit;
+        }
+
+        $queryArgs = array(
+            "post_type" => "mtu_pamphlet",
+            "meta_query" => [
+                "key" => "_mtu_related_meeting",
+                "value" => $postId
+            ],
+            "posts_per_page" => -1
+        );
+        $query = new WP_Query($queryArgs);
+        $pamphlets = $query->get_posts();
+        $res = array();
+
+        foreach($pamphlets as $pamphlet) {
+            array_push($res, [
+                "title" => $pamphlet->post_title,
+                "url" => get_post_meta($pamphlet->ID, "_mtu_pamphlet_link", true)
+            ]);
+        }
+
+        echo json_encode(Utils::returnData($res));
         exit;
     }
 }

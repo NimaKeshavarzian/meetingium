@@ -1,6 +1,8 @@
 window.onload = async () => {
     await getRecordings();
     document.getElementById("recordings-container").classList.add("animated");
+    await getPamphlets();
+    document.getElementById("pamphlets-container").classList.add("animated");
 }
 
 const getRecordings = async () => {
@@ -39,4 +41,34 @@ const getRecordings = async () => {
             </div>
             `;
     });
+}
+
+const getPamphlets = async () => {
+    const pamphletsContainer = document.getElementById("pamphlets-container");
+    const pamphletsPlaceholder = document.getElementById("pamphlets-placeholder");
+
+    let pamphlets = await fetch(pamphletsObject.ajaxUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            action: "mtu_pamphlets",
+            post_id: pamphletsObject.postId,
+            _ajax_nonce: pamphletsObject.nonce
+        })
+    }).then(res => res.json());
+
+    if(!pamphlets.success) return pamphletsPlaceholder.innerText = "امکان نمایش جزوات کلاس وجود ندارد.";
+    if(pamphlets.data.length == 0) return pamphletsPlaceholder.innerText = "جزوه‌ای برای نمایش وجود ندارد.";
+
+    pamphletsPlaceholder.remove();
+    pamphlets.data.forEach(pamphlet => {
+        pamphletsContainer.innerHTML += `
+        <a href="${pamphlet.url}" class="pamphlet">
+            <div class="pamphlet-icon"><span class="dashicons dashicons-media-default"></span></div>
+            <h4 class="pamphlet-name">${pamphlet.title}</h4>
+        </a>
+        `
+    })
 }
