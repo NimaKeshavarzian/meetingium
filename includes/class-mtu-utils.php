@@ -62,7 +62,7 @@ class Utils {
   */
   public static function checkAccessToMeeting(int $postId) {
     $usersWithAccess = explode(",", get_post_meta($postId, "_mtu_meeting_users", true));
-    return in_array(wp_get_current_user()->display_name, $usersWithAccess);
+    return in_array(wp_get_current_user()->user_login, $usersWithAccess);
   }
 
   /*

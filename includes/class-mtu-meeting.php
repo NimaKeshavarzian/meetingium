@@ -145,7 +145,7 @@ class MTU_Meeting {
      */
     public static function getMeetingsList()
     {
-        $userName = wp_get_current_user()->display_name;
+        $userName = wp_get_current_user()->user_login;
         if (!$userName) return;
 
         $queryArgs = [
