@@ -1,9 +1,9 @@
 <?php
 /*
- * @package meetingium
- *
- * Create, join & delete meetings using BigBlueButton api and wordpress meta keys
- */
+* @package meetingium
+*
+* Create, join & delete meetings using BigBlueButton api and wordpress meta keys
+*/
 
 use Meetingium\BBB_Api\MTU_BBB_Api as MTU_BBB_Api;
 use Meetingium\Utils\Utils;

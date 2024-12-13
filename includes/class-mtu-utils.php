@@ -94,6 +94,32 @@ class Utils {
   }
 
   /*
+  * Show success admin notice
+  *
+  * @param String $msg
+  */
+  public static function adminNotice__error($msg) {
+    ?>
+    <div class="notice notice-error">
+      <p><?= $msg ?></p>
+    </div>
+    <?php
+  }
+
+  /*
+  * Show error admin notice
+  *
+  * @param String $msg
+  */
+  public static function adminNotice__success($msg) {
+    ?>
+    <div class="notice notice-success">
+      <p><?= $msg ?></p>
+    </div>
+    <?php
+  }
+
+  /*
   * Redirect user and exit
   *
   * @param String $url

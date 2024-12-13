@@ -8,16 +8,20 @@
 
 use Meetingium\Utils\Utils;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-class MTU_MetaBoxes {
+class MTU_MetaBoxes
+{
   public function __construct() {
     add_action("add_meta_boxes", array($this, "addMetaBoxes"));
   }
 
   public function addMetaBoxes($postType) {
-    if($postType == "mtu_meeting") {
+    if ($postType == "mtu_meeting") {
       add_meta_box("mtu_meeting_box", "اطلاعات کلاس", array($this, "meetingsHtml"), "mtu_meeting");
+    }
+    if ($postType == "mtu_pamphlet") {
+      add_meta_box("mtu_pamphlet_box", "جزوه", array($this, "pamphletHtml"), "mtu_pamphlet");
     }
   }
 
@@ -27,21 +31,54 @@ class MTU_MetaBoxes {
   public function meetingsHtml($post) {
 ?>
     <table class="form-table">
+      <tbody>
+        <tr>
+          <th scope="row"><label for="meeting_users">لیست کاربران:</label></th>
+          <td><input type="text" name="meeting_users" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_users", true); ?>" placeholder="مثال: کاربر۱,کاربر۲,..."> </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="meeting_time">زمان برگزاری:</label></th>
+          <td><input type="text" name="meeting_time" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_time", true); ?>" placeholder="مثال: شنبه‌ها ۱۶:۳۰ - دوشنبه‌ها ۱۸:۰۰"></td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="meeting_teacher">مدرس:</label></th>
+          <td><input type="text" name="meeting_teacher" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_teacher", true); ?>" placeholder="مثال: ابوالفضل شکوری"></td>
+        </tr>
+      </tbody>
+    </table>
+  <?php
+  }
+
+  /*
+  * Pamphlet meta boxes html
+  */
+  public function pamphletHtml($post) {
+    $meetingsIds = get_posts([
+      "post_type" => "mtu_meeting",
+      "fields" => "ids"
+    ]);
+    $relatedMeeting = get_post_meta($post->ID, "_mtu_related_meeting", true);
+  ?>
+  <table class="form-table">
     <tbody>
-    <tr>
-    <th scope="row"><label for="meeting_users">لیست کاربران:</label></th>
-    <td><input type="text" name="meeting_users" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_users", true); ?>" placeholder="مثال: کاربر۱,کاربر۲,..."> </td>
-    </tr>
-    <tr>
-    <th scope="row"><label for="meeting_time">زمان برگزاری:</label></th>
-    <td><input type="text" name="meeting_time" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_time", true); ?>" placeholder="مثال: شنبه‌ها ۱۶:۳۰ - دوشنبه‌ها ۱۸:۰۰"></td>
-    </tr>
-    <tr>
-    <th scope="row"><label for="meeting_teacher">مدرس:</label></th>
-    <td><input type="text" name="meeting_teacher" class="regular-text rtl" value="<?= get_post_meta($post->ID, "_mtu_meeting_teacher", true); ?>" placeholder="مثال: ابوالفضل شکوری"></td>
-    </tr>
+      <tr>
+        <th scope="row"><label for="related_meeting">کلاس مرتبط: </label></th>
+        <td>
+          <select name="related_meeting" id="related_meeting">
+            <?php
+            foreach($meetingsIds as $meetingId) :
+            ?>
+            <option value="<?= $meetingId ?>" <?= ($relatedMeeting == $meetingId) ? "selected" : "" ?>><?= get_the_title($meetingId) ?></option>
+            <?php endforeach; ?>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"><label for="pamphlet_file">فایل جزوه</label></th>
+        <td><input class="regular-text rtl" type="text" name="pamphlet_link" id="pamphlet_link" value="<?= get_post_meta($post->ID, "_mtu_pamphlet_link", true) ?>" placeholder="لینک دانلود جزوه"></td>
+      </tr>
     </tbody>
-    </table> 
+  </table>
 <?php
   }
 

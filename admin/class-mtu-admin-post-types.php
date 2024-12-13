@@ -25,6 +25,7 @@ class MTU_AdminPostTypes {
   */
   public function setMetaBoxesList() {
     if(isset($_POST["meeting_users"])) $this->metaBoxesList = array("meeting_users", "meeting_time", "meeting_teacher");
+    if(isset($_POST["related_meeting"])) $this->metaBoxesList = array("related_meeting", "pamphlet_link");
   }
 
   /*
@@ -33,6 +34,7 @@ class MTU_AdminPostTypes {
   * @param Int $postId
   */
   public function savePost($postId) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if(!current_user_can('edit_posts', $postId)) return;
 
     foreach($this->metaBoxesList as $metaBox) {
@@ -41,7 +43,10 @@ class MTU_AdminPostTypes {
 
     MTU_MetaBoxes::saveMetaBoxesData($postId, $this->metaBoxesList);
     if(!isset($_POST["post_title"])) return;
-    if(!get_post_meta($postId, "_mtu_meeting_id", true)) {
+
+    // Meeting post type
+    // Create meeting on server if doesn't exits
+    if(in_array("meeting_users", $this->metaBoxesList) && !get_post_meta($postId, "_mtu_meeting_id", true)) {
       MTU_Meeting::create($postId, sanitize_text_field($_POST["post_title"]));
     }
   }
