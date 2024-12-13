@@ -42,10 +42,19 @@ while (have_posts()) :
             <?php endif; ?>
         </div>
 
-        <h3 class="recordings-header">جلسات برگزار شده</h3>
+        <h3 class="single-part-header recordings-header">جلسات برگزار شده</h3>
         <div class="divider"></div>
         <div class="recordings" id="recordings-container">
             <h4 id="recordings-placeholder">درحال دریافت جلسات ضبط شده...</h4>
+        </div>
+        
+        <h3 class="single-part-header pamphlet-header">جزوات کلاس</h3>
+        <div class="divider"></div>
+        <div class="item pamphlet-list">
+            <a href="" class="pamphlet">
+                <div class="pamphlet-icon"><span class="dashicons dashicons-media-default"></span></div>
+                <h4 class="pamphlet-name">جزوه جلسه ۱ - مسائل مقدماتی</h4>
+            </a>
         </div>
     </div>
 
